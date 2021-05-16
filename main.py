@@ -12,7 +12,6 @@ def on_open(ws):
 def on_close(ws):
     print('closed connection')
 
-
 def on_message(ws, message):
     global closes, highs, lows
 
@@ -20,15 +19,19 @@ def on_message(ws, message):
     pprint.pprint(json_message)
 
     candle = json_message['k']
-    close = candle['c']
-    high = candle['h']
-    low = candle['l']
-    print('close', close, 'high', high, 'low', low)
 
-    # listelerimize ekliyoruz
-    closes.append(close)
-    highs.append(high)
-    lows.append(low)
+    is_candle_closed = candle['x']
+
+    if is_candle_closed:
+        close = candle['c']
+        high = candle['h']
+        low = candle['l']
+        print('close', close, 'high', high, 'low', low)
+
+        # listelerimize ekliyoruz
+        closes.append(close)
+        highs.append(high)
+        lows.append(low)
 
 
 ws = websocket.WebSocketApp(SOCKET, on_open=on_open, on_close=on_close, on_message=on_message)
