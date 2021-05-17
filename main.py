@@ -138,7 +138,7 @@ def on_message(ws, message):
     global closes, highs, lows
 
     json_message = json.loads(message)
-    # pprint.pprint(json_message)
+    pprint.pprint(json_message)
 
     candle = json_message['k']
 
